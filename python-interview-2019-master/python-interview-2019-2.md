@@ -13,7 +13,9 @@
    答案：
 
    ```
-   
+   ()
+   (1,9)
+   (6)
    ```
 
 2. 下面的Python代码会输出什么。
@@ -28,7 +30,7 @@
    答案：
 
    ```
-   
+   42
    ```
 
 3. 有一个通过网络获取数据的Python函数（可能会因为网络或其他原因出现异常），写一个装饰器让这个函数在出现异常时可以重新执行，但尝试重新执行的次数不得超过指定的最大次数。
@@ -36,7 +38,20 @@
    答案：
 
    ```Python
-   
+   def A(get):
+      max = 5
+      
+      def B(*args, **kwargs):
+         for i in len(max):
+            if i > 4:
+               return Error
+         result = get()
+         return result
+      return B
+      
+   @A
+   def get(self, request, *args, **kwargs):
+      return HttpResponse('GET')
    ```
 
 4. 下面的字典中保存了某些公司今日的股票代码及价格，用一句Python代码从中找出价格最高的股票对应的股票代码，用一句Python代码创建股票价格大于100的股票组成的新字典。
@@ -58,6 +73,9 @@
    答案：
 
    ```Python
+   max(prices.values())
+   
+   del prices[lambda key : a[key] <= 100]
    
    ```
 
@@ -110,6 +128,7 @@
     答案：
 
     ```
+    python内部使用引用计数，追踪内存中的对象。当内存中的对象被创建时，即增加一个引用计数；当对象不再被调用时，引用计数为0，开始垃圾回收机制；
     
     ```
 
@@ -137,6 +156,7 @@
   答案：
 
   ```SQL
+  select count(shengfu) from tb_result order by rq;
   
   ```
 
@@ -145,7 +165,9 @@
     答案：
 
     ```
-    
+    Host:主机
+    cookie:
+    user-agent
     ```
 
 12. 阐述JSON Web Token的工作原理和优点。
@@ -161,6 +183,13 @@
     答案：
 
     ```
+    1、用户输入网址
+    2、向DNS服务器查询IP地址
+    3、DNS服务器返回网站IP地址
+    4、网页向web服务器发送http请求
+    5、web服务器（Apache，Nginx等）处理请求，调用数据库里的相关数据
+    6、返回数据库的数据到前段页面
+    7、浏览器把数据展示到网页上
     
     ```
 
