@@ -13,9 +13,9 @@
    答案：
 
    ```
-   ()
-   (1,9)
-   (6)
+   [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+   {1: item1, 3: items9}
+   6
    ```
 
 2. 下面的Python代码会输出什么。
@@ -38,20 +38,23 @@
    答案：
 
    ```Python
-   def A(get):
-      max = 5
+   from functools import wraps
+   
+   def retry(tries=1, errors=(Exception, )):
       
-      def B(*args, **kwargs):
-         for i in len(max):
-            if i > 4:
-               return Error
-         result = get()
-         return result
-      return B
-      
-   @A
-   def get(self, request, *args, **kwargs):
-      return HttpResponse('GET')
+      def outer(func):
+         
+         @warps(func)
+         def inner(*args, **kwargs):
+            for _ in range(tries):
+               try:
+                  return func(*args, **kwargs)
+               except errors:
+                  pass
+                  
+         return inner
+         
+     return outer
    ```
 
 4. 下面的字典中保存了某些公司今日的股票代码及价格，用一句Python代码从中找出价格最高的股票对应的股票代码，用一句Python代码创建股票价格大于100的股票组成的新字典。
@@ -75,7 +78,7 @@
    ```Python
    max(prices.values())
    
-   del prices[lambda key : a[key] <= 100]
+   {key: value for key, value in prices.items() if value > 100}
    
    ```
 
@@ -84,7 +87,7 @@
    答案：
 
    ```Python
-   
+  
    ```
 
 6. 写一个函数，传入的参数是一个列表（列表中的元素可能也是一个列表），返回该列表最大的嵌套深度，例如：
@@ -100,6 +103,15 @@
    答案：
 
    ```Python
+   def depth_of_list(items):
+      if isinstance(items, list):
+         max_depth = 1
+         for item in items:
+            curr_depth = depth_of_list(item)
+            if curr_depth + 1 > max_depth:
+               max_depth = curr_depth + 1
+         return max_depth
+      return 0
    
    ```
 
@@ -112,6 +124,27 @@
    答案：
 
    ```Python
+   seq_num = 10000000
+   url_maps = {}
+   
+   def to_base62(num):
+      chars =
+'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+      result = []
+      while num > 0:
+         result.append(chars[num % 62])
+         num //= 62
+      return ''.join(reversed(result))
+      
+   def to_short(url):
+      if url in url_maps:
+         return url_maps[url]
+      global seq_num
+      seq_num += 1
+      short_url = f'http://t.cn/{to_base62(seq_num)}'
+      url_maps[url] = short_url
+      return short_url
+   
    
    ```
 
@@ -120,6 +153,23 @@
     答案：
 
     ```Python
+    from threading import get_ident, Thread, Lock
+    from concurrent.futures import ThreadPoolExecutor
+    
+    result, i = 0, 1
+    locker = Lock()
+    
+    def calc():
+      global result, i 
+      while True:
+         with locker:
+            if i > 100:
+               break
+            result, i = result + i, i + 1
+            print(get_ident(), result)
+            
+      with TreadPoolExecutor(max_workers=5) as pool:
+         pool.submit(calc)
     
     ```
 
