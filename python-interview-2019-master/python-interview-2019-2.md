@@ -129,7 +129,7 @@
    
    def to_base62(num):
       chars =
-'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
       result = []
       while num > 0:
          result.append(chars[num % 62])
